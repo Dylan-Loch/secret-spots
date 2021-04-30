@@ -1,5 +1,7 @@
 body {
   font-family: sans-serif;
+  /* background-image: url("https://www.ethanallen.com/on/demandware.static/-/Sites-main/default/dw6cafabb7/images/large_gray/YK0917.jpg"); */
+  background-color: rgb(174, 211, 205);
 }
 
 a {
@@ -24,4 +26,98 @@ form div {
   display: flex;
   height: 500px;
   width: 100%;
+}
+
+#navbar {
+  background-image: url("https://i.pinimg.com/originals/a9/77/e4/a977e44161dc8090f587e6fa0056c22b.jpg");
+  background-color: aquamarine;
+  height: 200px;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+#nav {
+  position: absolute;
+  bottom: 0;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.navLink {
+  color: white;
+}
+
+#logged {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color:darkcyan;
+}
+
+#page-title {
+  position: absolute;
+  top: 10%;
+  left: 25%;
+  font-family: papyrus;
+  text-shadow:  0px 3px 0px #b2a98f,
+                0px 14px 10px rgba(0,0,0,0.15),
+                0px 24px 2px rgba(0,0,0,0.1),
+                0px 34px 30px rgba(0,0,0,0.1);
+  color: rgb(223, 221, 217);
+  font-size: 80px;
+  /* text-align: center; */
+  text-decoration: darkcyan;
+}
+
+.individual-spot {
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  text-align: center;
+}
+
+.hot-spring {
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  text-align: center;
+  background-color: rgb(235, 119, 119);
+}
+
+.camping {
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  text-align: center;
+  background-color: darkgreen;
+}
+
+.hiking {
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  text-align: center;
+  background-color: tan;
+}
+
+.ski {
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  text-align: center;
+  background-color: rgb(145, 207, 228);
+}
+
+.fishing {
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  text-align: center;
+  background-color: rgb(115, 115, 233);
+}
+
+.other {
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  text-align: center;
+  background-color: rgb(173, 170, 170);
 }
