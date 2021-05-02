@@ -1,6 +1,6 @@
 'use strict'
 
-const {db, models: {User} } = require('../server/db')
+const {db, models: {User, Spot} } = require('../server/db')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -15,6 +15,28 @@ async function seed() {
     User.create({ username: 'cody', password: '123' }),
     User.create({ username: 'murphy', password: '123' }),
   ])
+
+  const spots = await Promise.all([
+    Spot.create({
+      id: 1,
+      title: 'Elk Creek Hot Spring',
+      location: '39.572, -106.164',
+      category: 'hot-spring',
+      description: 'Small natural hot spring, about 1.5 miles from the trailhead. Big enough for 5-6 people',
+      notes: 'Access road may be closed in winter',
+    }),
+    Spot.create({
+      id: 2,
+      title: 'Skyscraper Glacier',
+      location: '39.956, -105.688',
+      category: 'ski',
+      description: 'Steep glacier that stays skiable through summer. Descent of about 750 vertical feet',
+      notes: 'Six mile hike required. There is some cliff jumping at the lake at the bottom',
+    }),
+  ])
+
+  await spots[0].setUser(users[0]);
+  await spots[1].setUser(users[0]);
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)

@@ -14,7 +14,7 @@ export default class SingleSpot extends React.Component {
     return (
       <div id="single-spot">
               <div id='spot-details'>
-                <h1 id='name'>{spot.name}</h1>
+                <h1 id='title'>{spot.title}</h1>
                 <h5>{spot.category}</h5>
                 <div>Coordinates: {spot.location}</div>
                 <p>Description: {spot.description}</p>
