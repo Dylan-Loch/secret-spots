@@ -1,9 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
-import { MapContainer, TileLayer, Marker, Popup , LeafletMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup , LeafletMap, eventHandlers } from 'react-leaflet';
 import { map } from 'leaflet';
 import axios from 'axios';
+import { icons } from './Icons';
 
 
 /**
@@ -24,10 +25,10 @@ export class Home extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   async componentDidMount(){
-    // setTimeout(function(){map.invalidateSize()},10); //this doesn't work but resizing map might load it fully
     const { data: spots } = await axios.get('/api/spots');
     this.setState({
       spots: spots
@@ -45,31 +46,45 @@ export class Home extends React.Component {
   async handleSubmit(){
     const newSpot = this.state.newSpot;
     const { data: spot } = await axios.post('/api/spots', newSpot);
-    console.log('new spot response-->', spot)
     this.setState({
       spots: [...this.state.spots, spot]
     })
   }
 
+  handleClick(evt) {
+    console.log('location-->', evt.latlng)
+    navigator.clipboard.writeText(evt.latlng);
+  }
+
   render() {
     
-    const position = [39.5764, -106.093]
+    const Frisco = [39.5764, -106.093]
     
     return (
       <>
         <div id="logged">Logged in as {this.props.username}</div>
-        <MapContainer center={position} zoom={13} scrollWheelZoom={true}>
+        <MapContainer center={Frisco} zoom={13} scrollWheelZoom={true} eventHandlers={this.handleClick}>
           <div id="mapid"></div>
             <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              // attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              url="https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=ziLWSLIxln34WCM7lthh"
             />
-          <Marker position={position}>
+          <Marker position={Frisco} icon={icons['home']}>
             <Popup>
               Home Base! 
             </Popup>
           </Marker>
-          {/* <LocationMarker /> */}
+          {this.state.spots.map((spot) =>
+            <Marker key={spot.id} position={[Number(spot.location.split(',')[0]), Number(spot.location.split(',')[1])]} icon={icons[spot.category]}>
+              <Popup>
+                <Link to={{pathname: `/spots/${spot.id}`, state: {spot: spot}}}>
+                  <h2>{spot.title}</h2>
+                  <span>{spot.category} <br/> {spot.location}</span>
+                </Link>
+              </Popup>
+            </Marker>
+          )}
         </MapContainer>
         <br />
         <div id="newSpot" className="spotForm">
@@ -84,7 +99,7 @@ export class Home extends React.Component {
             <label htmlFor='category'>Category</label>
             <select name='category' defaultValue="" onChange={this.handleChange}>
               <option value="" disabled hidden>Select Category</option>
-              <option value="hot-spring">Hot Spring</option>
+              <option value="hotspring">Hot Spring</option>
               <option value="camping">Camping</option>
               <option value="hiking">Hiking</option>
               <option value="ski">Ski</option>
@@ -97,12 +112,12 @@ export class Home extends React.Component {
 
             <label htmlFor='notes'>Notes</label>
             <input name='notes' onChange={this.handleChange}></input>
-
+            <br/> <br/>
             <button type='submit'>Submit</button>
           </form>
         </div>
         <div>
-          <h1>YOUR LANDMARKS</h1>
+          <h1 id="your-landmarks">YOUR LANDMARKS</h1>
           <div>
             {this.state.spots.length === 0 ? <h1>No spots, go explore!</h1> : (
               this.state.spots.map((spot) => (

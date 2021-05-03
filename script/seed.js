@@ -21,7 +21,7 @@ async function seed() {
       id: 1,
       title: 'Elk Creek Hot Spring',
       location: '39.572, -106.164',
-      category: 'hot-spring',
+      category: 'hotspring',
       description: 'Small natural hot spring, about 1.5 miles from the trailhead. Big enough for 5-6 people',
       notes: 'Access road may be closed in winter',
     }),
