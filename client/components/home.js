@@ -29,10 +29,20 @@ export class Home extends React.Component {
   }
 
   async componentDidMount(){
-    const { data: spots } = await axios.get('/api/spots');
-    this.setState({
-      spots: spots
-    })
+    try {
+      const token = window.localStorage.getItem("token");
+      const authData = {
+        headers: {
+          authorization: token,
+        },
+      };
+      const { data: spots } = await axios.get('/api/spots', authData);
+      this.setState({
+        spots: spots
+      })
+    } catch (error) {
+      console.log("Error fetching spots from server");
+    }
   }
 
   handleChange(evt){
@@ -44,11 +54,21 @@ export class Home extends React.Component {
   }
 
   async handleSubmit(){
-    const newSpot = this.state.newSpot;
-    const { data: spot } = await axios.post('/api/spots', newSpot);
-    this.setState({
-      spots: [...this.state.spots, spot]
-    })
+    try {
+      const newSpot = this.state.newSpot;
+      const token = window.localStorage.getItem("token");
+      const authData = {
+        headers: {
+          authorization: token,
+        },
+      };
+      const { data: spot } = await axios.post('/api/spots', newSpot, authData);
+      this.setState({
+        spots: [...this.state.spots, spot]
+      })
+    } catch (error) {
+      console.log("Error creating new spot!")
+    }
   }
 
   handleClick(evt) {

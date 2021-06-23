@@ -6,10 +6,11 @@ import {authenticate} from '../store'
  * COMPONENT
  */
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  const {name, displayName, handleSubmit, error, text} = props
 
   return (
     <div>
+      <h3>{text}</h3>
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="username">
@@ -43,7 +44,8 @@ const mapLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
-    error: state.auth.error
+    error: state.auth.error,
+    text: 'Welcome back, please log in!',
   }
 }
 
@@ -51,7 +53,8 @@ const mapSignup = state => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
-    error: state.auth.error
+    error: state.auth.error,
+    text: 'Hi there, welcome to Landmarks! Please create an account',
   }
 }
 
