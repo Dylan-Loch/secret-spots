@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+export const Navbar = ({handleClick, isLoggedIn}) => (
   <div id="navbar">
     <h1 id="page-title">Landmarks</h1>
     <nav id="nav">
